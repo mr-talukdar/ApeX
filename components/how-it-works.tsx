@@ -7,7 +7,7 @@ export default function HowItWorks() {
         </h2>
         <div className="space-y-8">
           <div className="flex gap-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-sm">
+            <div className="shrink-0 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-sm">
               1
             </div>
             <div>
@@ -21,7 +21,7 @@ export default function HowItWorks() {
             </div>
           </div>
           <div className="flex gap-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-sm">
+            <div className="shrink-0 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-sm">
               2
             </div>
             <div>
@@ -35,7 +35,7 @@ export default function HowItWorks() {
             </div>
           </div>
           <div className="flex gap-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-sm">
+            <div className="shrink-0 w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-sm">
               3
             </div>
             <div>
