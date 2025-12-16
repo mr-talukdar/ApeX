@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Apex System
 
-## Getting Started
+Apex is a **structured governance system for motorcycle riding groups**.
 
-First, run the development server:
+It helps groups run safer, smoother rides by introducing **level-based access, clear rules, and consistent decision-making**, without turning riding into a competition or social media platform.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What Apex Does
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Enables structured access to group rides based on readiness
+- Reduces subjective or ego-driven decisions
+- Supports admins with clear, enforceable rules
+- Improves safety and group coordination over time
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## How It Works
 
-To learn more about Next.js, take a look at the following resources:
+1. Riders log in and join a riding group
+2. Group admins approve membership
+3. Rides are created with defined difficulty levels
+4. Riders can register only if they meet eligibility requirements
+5. Attendance is recorded after each ride
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Core Principles
 
-## Deploy on Vercel
+- **Safety over speed**
+- **Structure over ego**
+- **Transparency over favoritism**
+- **Progression over punishment**
+- **Community over individuals**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## What Apex Is Not
+
+- Not a leaderboard or ranking app
+- Not a punishment system
+- Not a social network
+- Not a replacement for rider responsibility
+
+Apex supports decisions.  
+Riders remain responsible for their own safety and judgment.
+
+---
+
+## Who It’s For
+
+Apex is designed for motorcycle riding groups that want:
+
+- Safer group rides
+- Clear expectations for participation
+- Reduced friction between riders and admins
+- A structured path for rider progression
+
+---
+
+## Status
+
+Apex is under active development and is currently being piloted within a real riding group.
+
+---
