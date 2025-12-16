@@ -37,6 +37,16 @@ export default function Navigation() {
             >
               About
             </Link>
+            <Link
+              href="/login"
+              className={`text-sm ${
+                pathname === "/login"
+                  ? "text-accent"
+                  : "text-muted-foreground hover:text-foreground"
+              } transition-colors`}
+            >
+              Login
+            </Link>
           </div>
         </div>
       </div>
