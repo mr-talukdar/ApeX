@@ -3,7 +3,7 @@ export default function WhatApexIs() {
     <section className="border-b border-border bg-background">
       <div className="mx-auto max-w-2xl px-6 py-16">
         <h2 className="text-2xl font-semibold text-foreground mb-12">
-          What Apex Is
+          What ApeX Is
         </h2>
         <div className="space-y-8">
           <div>
@@ -11,7 +11,7 @@ export default function WhatApexIs() {
               A governance framework
             </h3>
             <p className="text-muted-foreground leading-relaxed">
-              Apex provides the structural foundation for groups to organize
+              ApeX provides the structural foundation for groups to organize
               themselves transparently and consistently.
             </p>
           </div>

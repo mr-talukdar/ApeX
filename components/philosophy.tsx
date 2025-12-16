@@ -8,7 +8,7 @@ export default function Philosophy() {
         <div className="space-y-8">
           <div>
             <h3 className="text-base font-semibold text-foreground mb-3">
-              Why Apex was created
+              Why ApeX was created
             </h3>
             <p className="text-muted-foreground leading-relaxed">
               Motorcycle riding groups need clear, fair systems to manage access

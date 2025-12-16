@@ -3,7 +3,7 @@ export default function WhyApex() {
     <section className="border-b border-border bg-background">
       <div className="mx-auto max-w-2xl px-6 py-16">
         <h2 className="text-2xl font-semibold text-foreground mb-12">
-          Why Apex Exists
+          Why ApeX Exists
         </h2>
         <div className="space-y-8">
           <div>
@@ -11,7 +11,7 @@ export default function WhyApex() {
               Safety first decision making
             </h3>
             <p className="text-muted-foreground leading-relaxed">
-              Apex prioritizes safety above all else, providing a framework that
+              ApeX prioritizes safety above all else, providing a framework that
               encourages responsible decision-making in group riding scenarios.
             </p>
           </div>

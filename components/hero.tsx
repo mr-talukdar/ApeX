@@ -3,7 +3,7 @@ export default function Hero() {
     <section className="border-b border-border bg-background">
       <div className="mx-auto max-w-2xl px-6 py-16">
         <h1 className="text-4xl font-semibold text-foreground mb-4 text-balance">
-          Apex System
+          ApeX System
         </h1>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed text-balance">
           A structured system for safe, fair, level-based group rides

@@ -11,7 +11,7 @@ export default function Proof() {
               Used by BBG Motorrad
             </h3>
             <p className="text-muted-foreground leading-relaxed">
-              Apex System is actively used and trusted by BBG Motorrad for
+              ApeX System is actively used and trusted by BBG Motorrad for
               managing their group rides and member progression.
             </p>
           </div>

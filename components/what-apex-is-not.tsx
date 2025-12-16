@@ -3,7 +3,7 @@ export default function WhatApexIsNot() {
     <section className="border-b border-border bg-background">
       <div className="mx-auto max-w-2xl px-6 py-16">
         <h2 className="text-2xl font-semibold text-foreground mb-12">
-          What Apex Is Not
+          What ApeX Is Not
         </h2>
         <div className="space-y-8">
           <div>

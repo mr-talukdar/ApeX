@@ -7,7 +7,7 @@ export default function SafetyDisclaimer() {
         </h2>
         <div className="bg-secondary p-6 rounded">
           <p className="text-foreground leading-relaxed">
-            Apex System supports decision-making within riding groups. However,
+            ApeX System supports decision-making within riding groups. However,
             all riders remain ultimately responsible for their own safety,
             judgment, and adherence to traffic laws. No system can eliminate the
             inherent risks of motorcycle riding. Riders must evaluate their own

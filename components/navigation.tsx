@@ -14,7 +14,7 @@ export default function Navigation() {
             href="/"
             className="text-lg font-semibold text-foreground hover:text-accent transition-colors"
           >
-            Apex System
+            ApeX System
           </Link>
           <div className="flex gap-8">
             <Link

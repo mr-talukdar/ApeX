@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CTA() {
   return (
     <section className="border-b border-border bg-background">
@@ -6,9 +8,12 @@ export default function CTA() {
           Ready to get started?
         </h2>
         <div className="flex gap-4">
-          <button className="px-6 py-3 bg-accent text-accent-foreground rounded hover:opacity-90 transition-opacity font-medium">
-            Login
-          </button>
+          <Link href="/login">
+            <button className="px-6 py-3 bg-accent text-accent-foreground rounded hover:opacity-90 transition-opacity font-medium">
+              Login
+            </button>
+          </Link>
+
           <button className="px-6 py-3 border border-border text-foreground rounded hover:bg-secondary transition-colors font-medium">
             Join your group
           </button>
