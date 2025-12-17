@@ -1,113 +1,59 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
-interface UserData {
-  email: string;
-  fullName: string;
-  joinDate: string;
-}
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
-export default function DashboardPage() {
-  const [user, setUser] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    const userData = localStorage.getItem("currentUser");
-    if (!userData) {
-      router.push("/login");
-      return;
-    }
-    setUser(JSON.parse(userData));
-    setLoading(false);
-  }, [router]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    router.push("/");
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        Loading...
-      </div>
-    );
+  if (!session) {
+    redirect("/login");
   }
 
-  if (!user) {
-    return null;
-  }
+  const user = session.user;
+  const firstName = user?.name?.split(" ")[0] ?? "User";
+
+  console.log(user?.image);
 
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-2xl px-6 py-12">
-        <div className="flex items-center justify-between mb-12">
-          <h1 className="text-3xl font-semibold text-foreground">Dashboard</h1>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 rounded-md bg-muted text-foreground hover:bg-muted/80 transition-colors text-sm font-medium"
-          >
-            Logout
-          </button>
-        </div>
+    <main className="min-h-screen bg-background flex items-center justify-center">
+      <Card className="w-full max-w-md">
+        <CardHeader className="flex flex-col items-center text-center space-y-3">
+          <Avatar className="h-20 w-20">
+            <AvatarImage src={user?.image?.toString()} alt={user?.name ?? ""} />
+            <AvatarFallback>{firstName.charAt(0)}</AvatarFallback>
+          </Avatar>
 
-        <div className="space-y-8">
-          <div className="border border-border rounded-lg p-8 bg-card">
-            <div className="mb-6">
-              <p className="text-muted-foreground text-sm mb-1">Welcome,</p>
-              <h2 className="text-2xl font-semibold text-foreground">
-                {user.fullName}
-              </h2>
-            </div>
+          <CardTitle className="text-2xl">Welcome, {firstName}</CardTitle>
 
-            <div className="space-y-4">
-              <div className="flex justify-between items-start border-b border-border pb-4">
-                <div>
-                  <p className="text-muted-foreground text-sm">Email Address</p>
-                  <p className="text-foreground font-medium">{user.email}</p>
-                </div>
-              </div>
+          <CardDescription className="text-sm">{user?.email}</CardDescription>
+        </CardHeader>
 
-              <div className="flex justify-between items-start border-b border-border pb-4">
-                <div>
-                  <p className="text-muted-foreground text-sm">Member Since</p>
-                  <p className="text-foreground font-medium">
-                    {new Date(user.joinDate).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <Separator />
 
-          <div className="border border-border rounded-lg p-8 bg-card">
-            <h3 className="text-xl font-semibold text-foreground mb-4">
-              Quick Actions
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              <Link
-                href="/"
-                className="px-4 py-3 rounded-md border border-border text-foreground hover:bg-muted transition-colors text-center text-sm font-medium"
-              >
-                View Home
-              </Link>
-              <Link
-                href="/about"
-                className="px-4 py-3 rounded-md border border-border text-foreground hover:bg-muted transition-colors text-center text-sm font-medium"
-              >
-                Learn More
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+        <CardContent className="space-y-4 pt-6">
+          <form action="/api/auth/signout" method="post">
+            <Button type="submit" variant="outline" className="w-full">
+              Logout
+            </Button>
+          </form>
+
+          <Button asChild className="w-full">
+            <Link href="/">Go to Home</Link>
+          </Button>
+        </CardContent>
+      </Card>
     </main>
   );
 }

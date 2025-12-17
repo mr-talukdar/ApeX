@@ -2,51 +2,39 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserMenu from "./UserMenu";
 
 export default function Navigation() {
   const pathname = usePathname();
 
+  const linkClass = (path: string) =>
+    `relative text-sm transition-colors ${
+      pathname === path
+        ? "text-foreground font-medium after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:bg-accent"
+        : "text-muted-foreground hover:text-foreground"
+    }`;
+
   return (
     <nav className="border-b border-border bg-background">
-      <div className="mx-auto max-w-2xl px-6 py-8">
-        <div className="flex items-center justify-between">
+      <div className="mx-auto max-w-3xl px-6">
+        <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
-            className="text-lg font-semibold text-foreground hover:text-accent transition-colors"
+            className="text-lg font-semibold tracking-tight hover:text-accent transition-colors"
           >
             ApeX System
           </Link>
-          <div className="flex gap-8">
-            <Link
-              href="/"
-              className={`text-sm ${
-                pathname === "/"
-                  ? "text-accent"
-                  : "text-muted-foreground hover:text-foreground"
-              } transition-colors`}
-            >
+
+          <div className="flex items-center gap-8">
+            <Link href="/" className={linkClass("/")}>
               Home
             </Link>
-            <Link
-              href="/about"
-              className={`text-sm ${
-                pathname === "/about"
-                  ? "text-accent"
-                  : "text-muted-foreground hover:text-foreground"
-              } transition-colors`}
-            >
+
+            <Link href="/about" className={linkClass("/about")}>
               About
             </Link>
-            <Link
-              href="/login"
-              className={`text-sm ${
-                pathname === "/login"
-                  ? "text-accent"
-                  : "text-muted-foreground hover:text-foreground"
-              } transition-colors`}
-            >
-              Login
-            </Link>
+
+            <UserMenu />
           </div>
         </div>
       </div>
