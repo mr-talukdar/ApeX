@@ -11,6 +11,6 @@ export type GroupState = {
 export enum MembershipStatus {
   NONE = "NONE",
   PENDING = "PENDING",
-  ACCEPTED = "ACCEPTED",
+  ACTIVE = "ACTIVE",
   REJECTED = "REJECTED",
 }
