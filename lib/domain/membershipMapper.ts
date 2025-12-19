@@ -8,7 +8,7 @@ export const dbMembershipToMembershipMapper = (dbMembership: {
 }): MembershipStatus => {
   switch (dbMembership.status) {
     case "ACCEPTED":
-      return MembershipStatus.ACCEPTED;
+      return MembershipStatus.ACTIVE;
     case "PENDING":
       return MembershipStatus.PENDING;
     case "REJECTED":
