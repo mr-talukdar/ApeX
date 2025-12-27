@@ -1,11 +1,12 @@
 import { Decision } from "../types/decision";
 import { UserState, UserRole } from "../types/user";
 import { isValidApexUser } from "./isValidApexUser";
-import { MembershipStatus } from "../types/group";
+import { GroupState, MembershipStatus } from "../types/group";
 
 export const canResolveMembersips = (
   actor: UserState,
-  membershipSatus: MembershipStatus
+  membershipSatus: MembershipStatus,
+  group: GroupState
 ): Decision => {
   const isValidUser = isValidApexUser(actor);
   if (!isValidUser.allowed) {
@@ -18,6 +19,14 @@ export const canResolveMembersips = (
       reason: "User is not an admin",
     };
   }
+
+  if (!group.isActive) {
+    return {
+      allowed: false,
+      reason: "Group is not active",
+    };
+  }
+
   if (membershipSatus !== MembershipStatus.PENDING) {
     return {
       allowed: false,

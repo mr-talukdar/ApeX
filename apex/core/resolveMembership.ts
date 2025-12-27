@@ -1,7 +1,7 @@
 import { Decision } from "../types/decision";
 import { MembershipStatus } from "../types/group";
 
-export const canResolveMembersips = (
+export const resolveMembership = (
   membershipSatus: MembershipStatus,
   nextStatus: MembershipStatus
 ): Decision => {
