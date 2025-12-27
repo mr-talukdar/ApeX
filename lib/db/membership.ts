@@ -31,3 +31,17 @@ export const createMembership = async (
     throw error;
   }
 };
+
+export const updateMembershipStatus = async (
+  membershipId: string,
+  newStatus: string
+): Promise<void> => {
+  const { error } = await supabase
+    .from("group_memberships")
+    .update({ status: newStatus })
+    .eq("id", membershipId);
+
+  if (error) {
+    throw error;
+  }
+};
