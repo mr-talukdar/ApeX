@@ -4,6 +4,9 @@ Apex is a **structured governance system for motorcycle riding groups**.
 
 It helps groups run safer, smoother rides by introducing **level-based access, clear rules, and consistent decision-making**, without turning riding into a competition or social media platform.
 
+Live System Design Doc:
+👉 https://apex-doc.vercel.app/
+
 ---
 
 ## What Apex Does
