@@ -6,7 +6,9 @@ export const dbMembershipToMembershipMapper = (dbMembership: {
   group_id: string;
   status: string;
 }): MembershipStatus => {
-  switch (dbMembership.status) {
+  switch (dbMembership.status.toUpperCase()) {
+    case "ACTIVE":
+      return MembershipStatus.ACTIVE;
     case "ACCEPTED":
       return MembershipStatus.ACTIVE;
     case "PENDING":
@@ -14,6 +16,6 @@ export const dbMembershipToMembershipMapper = (dbMembership: {
     case "REJECTED":
       return MembershipStatus.REJECTED;
     default:
-      return MembershipStatus.REJECTED;
+      return MembershipStatus.NONE;
   }
 };
