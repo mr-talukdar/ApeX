@@ -48,16 +48,53 @@ export const updateMembershipStatus = async (
   }
 };
 
-export const getMembershipById = async (membershipId: number) => {
+export const getMembershipById = async (membershipId: string) => {
   const { data, error } = await supabase
     .from("group_memberships")
     .select("*")
     .eq("id", membershipId)
-    .single();
+    .maybeSingle();
 
-  if (error) {
-    throw error;
-  }
-
+  if (error) throw error;
   return data;
+};
+
+export const getMembershipsByUserId = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("group_memberships")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) throw error;
+  return data ?? [];
+};
+
+export const getMembershipsByGroupId = async (groupId: string) => {
+  const { data, error } = await supabase
+    .from("group_memberships")
+    .select("*")
+    .eq("group_id", groupId);
+
+  if (error) throw error;
+  return data ?? [];
+};
+
+export const getGroupMembersWithUser = async (groupId: string) => {
+  const { data, error } = await supabase
+    .from("group_memberships")
+    .select(
+      `
+      id,
+      status,
+      user:users (
+        id,
+        name,
+        email
+      )
+    `
+    )
+    .eq("group_id", groupId);
+
+  if (error) throw error;
+  return data ?? [];
 };

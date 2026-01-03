@@ -19,8 +19,8 @@ export const POST = async (
   context: { params: Promise<{ membershipId: string }> }
 ) => {
   const { membershipId } = await context.params;
-  const numericMembershipId = Number(membershipId);
-  console.log("looking for membership with id:", numericMembershipId);
+
+  console.log("looking for membership with id:", membershipId);
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -38,7 +38,7 @@ export const POST = async (
     );
   }
 
-  const membership = await getMembershipById(numericMembershipId);
+  const membership = await getMembershipById(membershipId);
 
   if (!membership) {
     return NextResponse.json(

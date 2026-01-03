@@ -4,7 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 import { getUserByEmail } from "@/lib/db/users";
 import { getGroupById } from "@/lib/db/groups";
-import { getMembership } from "@/lib/db/membership";
+import { getMembership, getMembershipsByUserId } from "@/lib/db/membership";
 import { createRide } from "@/lib/db/rides";
 
 import { mapDbUserToUserState } from "@/lib/domain/userMapper";
@@ -13,6 +13,30 @@ import { dbMembershipToMembershipMapper } from "@/lib/domain/membershipMapper";
 
 import { canCreateRide } from "@/apex/core/canCreateRide";
 import { RideStatus } from "@/apex/types/ride";
+import { DbMembership } from "@/apex/types/membership";
+import { getRidesWithParticipation } from "@/lib/db/rides";
+
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const user = await getUserByEmail(session.user.email);
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 400 });
+  }
+
+  const memberships = await getMembershipsByUserId(user.id);
+
+  const activeGroupIds = memberships
+    .filter((m: DbMembership) => m.status === "ACTIVE")
+    .map((m: DbMembership) => m.group_id);
+
+  const rides = await getRidesWithParticipation(user.id, activeGroupIds);
+
+  return NextResponse.json(rides);
+}
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);

@@ -1,8 +1,5 @@
 "use client";
 
-"use client";
-
-import { useEffect } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -15,19 +12,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-export default function DashboardClient({ session }: { session: any }) {
+export default function ProfileClient({ session }: { session: any }) {
   const user = session.user;
   const firstName = user?.name?.split(" ")[0] ?? "User";
-
-  useEffect(() => {
-    async function syncUser() {
-      const res = await fetch("/api/me");
-      if (!res.ok) {
-        console.error("Failed to sync user");
-      }
-    }
-    syncUser();
-  }, []);
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center">
@@ -52,7 +39,7 @@ export default function DashboardClient({ session }: { session: any }) {
           </form>
 
           <Button asChild className="w-full">
-            <Link href="/">Go to Home</Link>
+            <Link href="/dashboard/rides">Go to Rides</Link>
           </Button>
         </CardContent>
       </Card>

@@ -40,7 +40,6 @@ export async function POST(
   const ride = await getRideById(rideIdlocal);
   const group = await getGroupById(ride.group_id);
 
-  const actorMembership = await getMembership(actor.id, group.id);
   const targetMembership = await getMembership(riderId, group.id);
 
   // Map to domain
