@@ -147,7 +147,7 @@ Apex was built to fill this gap by providing structure that respects both freedo
    - Rides
    - Ride Participants
 
-   (Database schema documentation would be helpful here - consider adding a `schema.sql` file)
+   (Check the core/types for the schema)
 
 5. **Run the development server**
 
