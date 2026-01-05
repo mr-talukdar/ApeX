@@ -24,14 +24,24 @@ function formatTime(iso: string) {
 
 function RideCard({ ride, onUpdate }: { ride: ApiRide; onUpdate: () => void }) {
   const [joining, setJoining] = useState(false);
+  const [joinRequested, setJoinRequested] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (ride.isJoined) {
+      setJoinRequested(false);
+    }
+  }, [ride.isJoined]);
 
   async function handleJoin() {
     try {
       setJoining(true);
+      setError(null);
       await joinRide(ride.id);
+      setJoinRequested(true);
       await onUpdate();
     } catch (e: any) {
-      alert(e.message);
+      setError(e.message || "Failed to join ride");
     } finally {
       setJoining(false);
     }
@@ -69,19 +79,24 @@ function RideCard({ ride, onUpdate }: { ride: ApiRide; onUpdate: () => void }) {
 
       <button
         onClick={handleJoin}
-        disabled={ride.status !== "OPEN" || joining || ride.isJoined}
+        disabled={
+          ride.status !== "OPEN" || joining || ride.isJoined || joinRequested
+        }
         className={`w-full px-4 py-2.5 rounded-md font-medium transition-colors ${
-          ride.status === "OPEN"
+          ride.status === "OPEN" && !joinRequested && !ride.isJoined
             ? "bg-accent text-accent-foreground hover:opacity-90"
             : "bg-muted text-muted-foreground cursor-not-allowed"
         }`}
       >
         {ride.isJoined
           ? "Joined"
+          : joinRequested
+          ? "Admin approval waiting"
           : ride.status === "OPEN"
           ? "Join Ride"
           : "Ride Closed"}
       </button>
+      {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
     </div>
   );
 }
@@ -91,25 +106,40 @@ export default function RidesPage() {
   const [showForm, setShowForm] = useState(false);
   const [groups, setGroups] = useState<any[]>([]);
   const [me, setMe] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     fetch("/api/me")
       .then((r) => r.json())
       .then(setMe);
     getMyGroups().then(setGroups);
-  }, []);
+  }, [mounted]);
 
   const canCreate =
     me?.role === "ADMIN" && groups.some((g) => g.membershipStatus === "ACTIVE");
 
   async function loadRides() {
-    const data = await getRides();
-    setRides(data);
+    try {
+      setLoading(true);
+      const data = await getRides();
+      setRides(data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
+    if (!mounted) return;
     loadRides();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -132,11 +162,21 @@ export default function RidesPage() {
             onCreated={loadRides}
           />
         )}
-        <div className="grid gap-6 md:grid-cols-2">
-          {rides.map((ride) => (
-            <RideCard key={ride.id} ride={ride} onUpdate={loadRides} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <p className="text-muted-foreground">Loading...</p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2">
+            {rides.length === 0 ? (
+              <p className="text-muted-foreground">No upcoming rides</p>
+            ) : (
+              rides.map((ride) => (
+                <RideCard key={ride.id} ride={ride} onUpdate={loadRides} />
+              ))
+            )}
+          </div>
+        )}
       </div>
     </main>
   );
@@ -154,6 +194,7 @@ function CreateRideForm({
   const [groupId, setGroupId] = useState("");
   const [startTime, setStartTime] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [groups, setGroups] = useState<any[]>([]);
 
   useEffect(() => {
@@ -163,6 +204,13 @@ function CreateRideForm({
   async function submit() {
     try {
       setLoading(true);
+      setError(null);
+
+      if (!groupId) {
+        setError("Select a group");
+        setLoading(false);
+        return;
+      }
 
       const res = await fetch("/api/rides", {
         method: "POST",
@@ -172,16 +220,14 @@ function CreateRideForm({
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.reason ?? "Failed to create ride");
-      if (!groupId) {
-        alert("Select a group");
-        return;
+      if (!res.ok) {
+        throw new Error(data.reason ?? "Failed to create ride");
       }
 
       onCreated();
       onClose();
     } catch (e: any) {
-      alert(e.message);
+      setError(e.message || "Failed to create ride");
     } finally {
       setLoading(false);
     }
@@ -228,6 +274,8 @@ function CreateRideForm({
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
+
+      {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
       <div className="flex gap-2 mt-4">
         <Button onClick={submit} disabled={loading}>

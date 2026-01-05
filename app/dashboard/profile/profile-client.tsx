@@ -11,6 +11,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { signOut } from "next-auth/react";
 
 export default function ProfileClient({ session }: { session: any }) {
   const user = session.user;
@@ -32,11 +33,13 @@ export default function ProfileClient({ session }: { session: any }) {
         <Separator />
 
         <CardContent className="space-y-4 pt-6">
-          <form action="/api/auth/signout" method="post">
-            <Button type="submit" variant="outline" className="w-full">
-              Logout
-            </Button>
-          </form>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            Logout
+          </Button>
 
           <Button asChild className="w-full">
             <Link href="/dashboard/rides">Go to Rides</Link>

@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -35,11 +38,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             </nav>
           </div>
 
-          <form action="/api/auth/signout" method="post">
-            <Button variant="outline" size="sm">
-              Logout
-            </Button>
-          </form>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            Logout
+          </Button>
         </div>
       </header>
 
